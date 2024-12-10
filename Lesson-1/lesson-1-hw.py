@@ -1,5 +1,3 @@
-# 2) Create a screen similar to the repl.it screen with a label "Pick a template" , an entry box to enter the template name, another label "Name your project" and entry box to type project name. There should also be a "Create repl" button.
-
 from tkinter import *
 
 root = Tk()
