@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter.ttk import Progressbar
 
 root = Tk()
 root.config(bg="lightgreen")
@@ -23,6 +24,42 @@ drink = Label(root, text='Drink',bg='light grey').place(x=20, y=300)
 drink_choice_entry = Entry(root, width=30).place(x=60,y=300)
 
 drink_quantity = Spinbox(root, from_=1, to=10).place(x=250,y=300)
+
+def bar():
+    import time
+    progress['value']=20
+    root.update_idletasks()
+    time.sleep(1)
+
+    progress['value']=40
+    root.update_idletasks()
+    time.sleep(1)
+
+    progress['value']=50
+    root.update_idletasks()
+    time.sleep(1)
+
+    progress['value']=60
+    root.update_idletasks()
+    time.sleep(1)
+
+    progress['value']=80
+    root.update_idletasks()
+    time.sleep(1)
+
+    progress['value']=100
+    root.update_idletasks()
+    time.sleep(1)
+
+    root.destroy()
+progress = Progressbar(root, orient=HORIZONTAL, length=100, mode='determinate')
+progress.place(x=40, y=340)
+
+submit_button = Button(root, text='Submit Order', command=bar)
+submit_button.place(x=40, y=380)
+
+
+
 root.mainloop()
 
 
