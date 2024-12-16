@@ -2,68 +2,45 @@ from tkinter import *
 
 import calendar
 
-def showCal():
+def showCalendar():
+    cal = Tk()
+
+    cal.config(background="white")
+    cal.geometry("700x1000")
+    cal.title("Calendar")
+
+    year = int(year_entry.get())
+
+    year_content = calendar.calendar(year)
+
+    cal_content = Label(cal, text=year_content, font="Consolas 12 bold")
+
+    cal_content.grid(row=1, column=1)
+
+    cal.mainloop()
+
+
+if __name__=="__main__":
     root = Tk()
 
-    root.config(background="white")
+    root.config(background="White")
 
     root.title("Calendar")
 
-    root.geometry("500x600")
+    root.geometry("250x140")
 
-    fetch_year = int(year_field.get())
+    cal = Label(root, text="Enter Year", bg="light green")
 
-    cal_content = calendar.calendar(fetch_year)
+    year_entry = Entry(root)
 
-    cal_year = Label(root, text=cal_content,font="Consolas 10 bold")
+    show_bttn = Button(root, text="Show Calendar", bg="Magenta", fg="white", command=showCalendar)
 
-    cal_year.grid(row=5,column=1,padx=20)
+    exit_bttn = Button(root, text="Exit", bg="Red",fg="White",command=root.destroy)
+
+    cal.grid(row=1,column=1)
+    year_entry.grid(row=2,column=1)
+    show_bttn.grid(row=3,column=1)
+    exit_bttn.grid(row=4,column=1)
+
 
     root.mainloop()
-
-
-if __name__ =="__main__":
-    top = Tk()
-
-    top.config(background="white")
-
-    # set the name of tkinter GUI window
-    top.title("CALENDER")
-
-    # Set the configuration of GUI window
-    top.geometry("250x140")
-
-    cal = Label(top,text="Calendar",bg="dark gray",font=("times", 28, 'bold'))
-
-    year = Label(top, text="Enter Year", bg="light green")
-
-    year_field = Entry(year)
-
-    Exit = Button(top, text="Exit", fg="Black", bg="Red", command=exit)
-
-    cal.grid(row=1, column=1)
-
-    year.grid(row=2, column=1)
-
-    year_field.grid(row=3, column=1)
-    Show = Button(top, text="Show Calendar", fg="Black",
-                  bg="Red", command=showCal)
-
-    # Create a Exit Button and attached to exit function
-    Exit = Button(top, text="Exit", fg="Black", bg="Red", command=exit)
-
-    # grid method is used for placing
-    # the widgets at respective positions
-    # in table like structure.
-    cal.grid(row=1, column=1)
-
-    year.grid(row=2, column=1)
-
-    year_field.grid(row=3, column=1)
-
-    Show.grid(row=4, column=1)
-
-    Exit.grid(row=6, column=1)
-
-    # start the GUI
-    top.mainloop()
