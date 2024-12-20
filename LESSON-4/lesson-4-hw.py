@@ -1,5 +1,6 @@
 from tkinter import *
 from time import strftime
+# from time import datetime
 import random
 
 def Get_Time():
@@ -20,5 +21,7 @@ heading = Label(root, text="Digital Clock")
 time_label = Label(root, fg="White", font=("Calibri", 40, "bold"))
 time_label.pack()
 Get_Time()
+print(strftime("%m/%d/%Y, %H:%M:%S"))
+
 
 root.mainloop()
