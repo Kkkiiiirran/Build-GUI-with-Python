@@ -1,130 +1,109 @@
-
 from tkinter import *
-import tkinter.font as font
 import random
 
-player_score = 0
-computer_score = 0
-options = [('rock',0), ('paper',1), ('scissors',2)]
+options = ["Rock", "Paper", "Scissors"]
 
-def computer_wins():
-    global computer_score, player_score
-    computer_score += 1
-    winner_label.config(text="Computer Won!!!")
-    computer_score_label.config(text='Computer Score : ' + str(computer_score))
-    player_score_label.config(text='Player Score : ' + str(player_score))
+# detecting click
+def RockClicked():
+    user_selection="Rock"
+    Play(user_selection)
 
-def player_wins():
-    global computer_score, player_score
-    player_score += 1
-    winner_label.config(text="Player Won!!!")
-    computer_score_label.config(text='Computer Score : ' + str(computer_score))
-    player_score_label.config(text='Player Score : ' + str(player_score))
+def PaperSelecion():
+    user_selection="Paper"
+    Play(user_selection)
 
-def tie():
-    global computer_score, player_score
-    winner_label.config(text="TIE!!!")
-    computer_score_label.config(text='Computer Score : ' + str(computer_score))
-    player_score_label.config(text='Player Score : ' + str(player_score))
+def ScissorsSelection():
+    user_selection="Scissors"
+    Play(user_selection)
 
-def player_choice(player_input):
-    global player_score, computer_score
-    print(player_input)
 
-    computer_input = get_computer_choice()
-    print(computer_input)
-    player_choice_label.config(text = 'Your Selected : ' + player_input[0])
-    computer_choice_label.config(text = 'Computer Selected : ' + computer_input[0])
+# Displaying Win
+def Tie():
+    global player_score,computer_score
+    game_start.config(text="Tie!!!", fg="Orange")
+    
+def PlayerWins():
+    global player_score
+    game_start.config(text="You Win!!!",fg="Green")
+    player_score+=1
+    
+def ComputerWins():
+    global computer_score
+    game_start.config(text="Computer Wins, You lose.", fg="Red")
+    computer_score+=1
 
-    if(player_input == computer_input):
-        tie()
+# Displaying Score
+def DisplayScore():
+    player_score_label.config(text=f"Player Score: {player_score}")
+    computer_score_label.config(text=f"Computer Score: {computer_score}")
 
-    #if the player has chosen rock
-    if(player_input[1] == 0):
-        if(computer_input[1] == 1):
-            #this means the computer wins
-            computer_wins()
-        elif (computer_input[1] == 2):
-            #this means the player wins
-            player_wins()
-
-    #if the player has paper
-    elif(player_input[1] == 1):
-        if(computer_input[1] == 0):
-            #this means the player wins
-            player_wins()
-        elif (computer_input[1] == 2):
-            #this means the computer wins
-            computer_wins()
-
-    #if the player has scissors
-    elif(player_input[1] == 2):
-        if(computer_input[1] == 0):
-            #this means the computer wins
-            computer_wins()
-        elif (computer_input[1] == 1):
-            #this means the player wins
-            player_wins()
-            
+# Checking Win
+def Play(user_selected):
+    computer_choice = random.choice(options)
+    you_selected_label.config(text=f"You Selected: {user_selected}")
+    computer_selected_label.config(text=f"Computer Selected: {computer_choice}")
+    if computer_choice==user_selected:
+        Tie()
+    elif (user_selected=="Rock" and computer_choice=="Scissors") or (user_selected=="Paper" and computer_choice=="Rock") or user_selected=="Scissors" and computer_choice=="Paper":
+        PlayerWins()
         
-  
-    # elif((player_input[1] - computer_input[1]) % 3 == 1):
-    #     player_score += 1
-    #     winner_label.config(text="You Won!!!")
-    #     player_score_label.config(text = 'Your Score : ' + str(player_score))
-    # else:
-    #     computer_score += 1
-    #     winner_label.config(text="Computer Won!!!")
-    #     computer_score_label.config(text='Your Score : ' + str(computer_score))
+    else:
+        ComputerWins()
 
-#Function to Randomly Select Computer Choice
-def get_computer_choice():
-    return random.choice(options)
+    DisplayScore()
 
-game_window = Tk()
-game_window.title("Rock Paper Scissors Game")
+    
+root = Tk()
+root.geometry("1000x300")
+root.title("Rock Paper Scissors Game")
 
-app_font = font.Font(size = 12)
+title = Label(root, text="ROCK PAPER SCISSORS", fg="Grey", font=("Heletica", 20))
+title.pack(pady=10)
 
-#Displaying Game Title
-game_title = Label(text = 'Rock Paper Scissors', font = font.Font(size = 20), fg = 'grey')
-game_title.pack()
+game_start = Label(root,text="Let's Start the Game...", font=("Helvetica", 13), fg="Green")
+game_start.pack(pady=5)
 
-#Label to dispay, who wins each time
-winner_label = Label(text = "Let's Start the Game...", fg = 'green', font = font.Font(size = 13), pady = 8)
-winner_label.pack()
+frame = Frame(root)
+frame.pack()
 
-input_frame = Frame(game_window)
-input_frame.pack()
+your_options = Label(frame, text="Your Options",fg = "Grey", font=("Helvetica", 15))
 
-#Displaying player options
-player_options = Label(input_frame, text = "Your Options : ", font = app_font, fg = 'grey')
-player_options.grid(row = 0, column = 0, pady = 8)
+# Buttons
+rock = Button(frame, text="Rock", bg="Pink",command=RockClicked)
+paper = Button(frame, text="Paper", bg="Grey",command=PaperSelecion)
+scissors = Button(frame,text="Scissors", bg="light blue",command=ScissorsSelection)
 
-rock_btn = Button(input_frame, text = 'Rock', width = 15, bd = 0, bg = 'pink', pady = 5, command = lambda: player_choice(options[0]))
-rock_btn.grid(row = 1, column = 1, padx = 8, pady = 5)
+# Score Display
+score = Label(frame, text="Score", font=("Helvetica", 15), fg="Grey")
 
-paper_btn = Button(input_frame, text = 'Paper', width = 15, bd = 0, bg = 'silver', pady = 5, command = lambda: player_choice(options[1]))
-paper_btn.grid(row = 1, column = 2, padx = 8, pady = 5)
+user_selection = StringVar()
+you_selected_label = Label(frame, text="You Selected:", font=("Helvetica", 13))
+# user_entry = Entry(frame, textvariable=user_selection)
 
-scissors_btn = Button(input_frame, text = 'Scissors', width = 15, bd = 0, bg = 'light blue', pady = 5, command = lambda: player_choice(options[2]))
-scissors_btn.grid(row = 1, column = 3, padx = 8, pady = 5)
+computer_selected_label = Label(frame, text="Computer Selected:",font=("Helvetica", 13))
+computer_selection = StringVar()
+# computer_entry = Entry(frame, textvariable=computer_selection)
 
-#Displaying Score and players choise
-score_label = Label(input_frame, text = 'Score : ', font = app_font, fg = 'grey')
-score_label.grid(row = 2, column = 0)
+player_score_label = Label(frame,text="Player Score:-",font=("Helvetica", 13))
+player_score = 0
+# player_score_display = Label(frame, textvariable=player_score)
 
-player_choice_label = Label(input_frame, text = 'Your Selected : ---', font = app_font)
-player_choice_label.grid(row = 3, column = 1, pady = 5)
+computer_score_label = Label(frame, text="Computer Score:-",font=("Helvetica", 13))
+computer_score = 0
 
-player_score_label = Label(input_frame, text = 'Your Score : -', font = app_font)
-player_score_label.grid(row = 3, column = 2, pady = 5)
+# layout
+your_options.grid(row=0,column=0, pady=12)
 
-computer_choice_label = Label(input_frame, text = 'Computer Selected : ---', font = app_font, fg = 'black')
-computer_choice_label.grid(row = 4, column = 1, pady = 5)
+rock.grid(row=1,column=1,ipadx=30, ipady=5)
+paper.grid(row=1,column=2, ipadx=30, ipady=5)
+scissors.grid(row=1,column=3, ipadx=30, ipady=5, padx=20)
 
-computer_score_label = Label(input_frame, text = 'Computer Score : -', font = app_font, fg = 'black')
-computer_score_label.grid(row = 4, column = 2, padx = (10,0), pady = 5)
+score.grid(row=2,column=0, pady=10)
 
-game_window.geometry('700x300')
-game_window.mainloop()
+you_selected_label.grid(row=3,column=1, padx=30)
+computer_selected_label.grid(row=4,column=1)
+
+player_score_label.grid(row=3,column=2, padx=30)
+computer_score_label.grid(row=4,column=2)
+
+root.mainloop()
