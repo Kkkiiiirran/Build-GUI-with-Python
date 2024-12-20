@@ -46,13 +46,13 @@ distance = Label(frame, width=20, bg="white")
 error_message_speed = Label(frame, text="Please enter a valid speed", font=("Helvetica", 8), fg="Red")
 error_message_time = Label(frame, text="Please enter a valid time", font=("Helvetica", 8), fg="Red")
 
-calculate_bttn = Button(root, text="Calculate Distance", command=CalculateDistance)
+calculate_bttn = Button(root, text="Calculate Distance", com=CalculateDistance)
 
 
 speed_label.grid(row=0,column=0)
 speed_entry.grid(row=1,column=0)
-time_label.grid(row=0,column=1)
-time_entry.grid(row=1,column=1)
+time_label.grid(row=0,column=1, padx=10)
+time_entry.grid(row=1,column=1,padx=10)
 distance_label.grid(row=0,column=2)
 distance.grid(row=1,column=2)
 calculate_bttn.pack()
