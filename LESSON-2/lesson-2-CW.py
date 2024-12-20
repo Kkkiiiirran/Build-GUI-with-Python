@@ -13,12 +13,9 @@ def Convert():
     pounds_entry.config(text=f"{in_pounds}")
     ounce_entry.config(text=f"{in_ounces}")
 
-
-
 seek_weight = Label(root, text="Enter weight in Kg")
 weight = StringVar()
 weight_entry = Entry(root,textvariable=weight, width=40)
-
 
 convert_bttn = Button(root, text="Convert", bg="Grey", command=Convert)
 

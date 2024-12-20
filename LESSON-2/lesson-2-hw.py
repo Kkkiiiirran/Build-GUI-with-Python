@@ -9,9 +9,6 @@ def Convert():
     in_dollars = in_rupees/80
     target_curr.config(text=in_dollars)
 
-
-
-
 title = Label(root, text="RS --> $ CONVERTER")
 title.pack()
 
