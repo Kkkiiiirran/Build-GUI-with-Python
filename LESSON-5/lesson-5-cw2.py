@@ -3,14 +3,14 @@ import tkinter.messagebox
 import random
 
 # Initialize game state
-tries = 5
-answer = random.randint(1, 20)  # Generate a random number globally
+tries = 10
+answer = random.randint(1, 100000)  # Generate a random number globally
 
 def reset_game():
     """Reset the game state for a new round."""
     global tries, answer
     tries = 5
-    answer = random.randint(1, 20)
+    answer = random.randint(1, 100000)
     result.config(text="You have 5 tries left", fg="#2c3e50")
     guess_input.config(state=NORMAL)
     check_button.config(state=NORMAL)
@@ -19,7 +19,7 @@ def reset_game():
 def NameEntered():
     """Handle name entry and start the game."""
     player_name = name.get()
-    message = f"Hello {player_name}, Guess a number between 1 and 20!"
+    message = f"Hello {player_name}, Guess a number between 1 and 50!"
     tkinter.messagebox.showinfo("Greeting", message)
     result.config(text=f"{player_name}, you have {tries} tries left")
     frame.pack_forget()
