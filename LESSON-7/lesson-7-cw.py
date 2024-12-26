@@ -7,7 +7,7 @@ def PrintTable():
     limit = int(limit_num.get())
     text = ""
     for i in range(limit):
-        text+=f"{number}    X    {i+1}  =    {number*(i+1)}\n"
+        text += f"{number:^5} X {i+1:^5} = {number*(i+1):^5}\n"
     result_label.config(text=text)
     result_label.grid(row=4, column=1, ipadx=5, pady=10)
     print(text)
