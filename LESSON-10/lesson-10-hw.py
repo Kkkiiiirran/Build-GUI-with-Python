@@ -1,7 +1,25 @@
 from tkinter import *
 from tkinter.ttk import *
-
+from tkinter import filedialog
 student_data = {}
+
+# Save student data to a JSON file
+def save():
+    file =filedialog.asksaveasfile(defaultextension=".txt")
+    if file:
+        print(student_data, file=file)
+
+# Open student data from a JSON file
+def open():
+    global student_data
+    file = filedialog.askopenfile(title="Open File")
+    if file:
+        student_data.clear()
+        student_data = eval(file.read())
+        for item in student_data:
+            record_list.insert(END, item)
+
+
 
 def add():
     global student_data
@@ -51,7 +69,47 @@ def display(event):
         display_label.pack(padx=20, pady=20)
         new_win.mainloop()
 
+def edit():
+    idx = record_list.curselection()
+    if idx:
+        item_name = record_list.get(idx)
+        
+        if item_name in student_data:
+            details = student_data[item_name]
+            
+            name_entry.delete(0, END)
+            roll_num_entry.delete(0, END)
+            science_marks_entry.delete(0, END)
+            maths_marks_entry.delete(0, END)
+            # percentage_entry.config(state='normal')
+            # percentage_entry.delete(0, END)
+            # percentage_entry.config(state='readonly')
+            
+            name_entry.insert(0, item_name)
+            roll_num_entry.insert(0, details["Roll Number"])
+            science_marks_entry.insert(0, details["Science Marks"])
+            maths_marks_entry.insert(0, details["Maths Marks"])
+        record_list.delete(idx)
+        del student_data[item_name]
 
+def delete():
+    idx = record_list.curselection()
+    if idx:
+        item_name = record_list.get(idx)
+        if item_name in student_data:
+            del student_data[item_name]
+            record_list.delete(idx)
+            print(f"Record '{item_name}' deleted successfully.")
+            clear_fields()
+
+def clear_fields():
+    name_entry.delete(0, END)
+    roll_num_entry.delete(0, END)
+    science_marks_entry.delete(0, END)
+    maths_marks_entry.delete(0, END)
+    # percentage_entry.config(state='normal')
+    percentage_entry.delete(0, END)
+    # percentage_entry.config(state='readonly')
 root = Tk()
 
 root.title("STUDENT INFORMATION AND MARKS LOGGER")
@@ -111,11 +169,11 @@ record_list.grid(row=4,column=0,columnspan=6)
 record_list.bind("<<ListboxSelect>>", display)
 # buttons
 
-edit_bttn = Button(mainframe, text="Edit",width=10)
-delete_bttn = Button(mainframe, text="Delete",width=10)
-open_bttn = Button(mainframe, text="Open",width=10)
+edit_bttn = Button(mainframe, text="Edit",width=10, command=edit)
+delete_bttn = Button(mainframe, text="Delete",width=10, command=delete)
+open_bttn = Button(mainframe, text="Open",width=10, command=open)
 update_add_bttn = Button(mainframe, text="Update/Add",width=20, command=add)
-save_bttn = Button(mainframe, text="Save", width=40)
+save_bttn = Button(mainframe, text="Save", width=40, command=save)
 
 edit_bttn.grid(row=5,column=0)
 delete_bttn.grid(row=5,column=1)
