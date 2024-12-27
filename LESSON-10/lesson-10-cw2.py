@@ -6,6 +6,9 @@ my_address_book = {}
 
 def add():
     name2 = name.get()
+    if not name2:
+        messagebox.showerror(title="No Name", message="Name field cannot be emtpy")
+        return
     address2 = address.get()
     email2 = email.get()
     mobile2 = mobile.get()
@@ -23,13 +26,47 @@ def add():
 
 def delete():
     idx = address_book.curselection()
-    address_book.delete(idx)
+    if idx:
+        item_name = address_book.get(idx)
+        address_book.delete(idx)
+        del my_address_book[item_name]
+        print(my_address_book)
+    else:
+        messagebox.showerror(title="Error", message="Select a name")
 
 def save():
     file = filedialog.asksaveasfile(defaultextension='.txt')
     if file:
-        for item in address_book.get(0,END):
-            print(f"{item}: {my_address_book[item]}",file=file)
+        print(my_address_book,file=file)
+
+def edit():
+    idx = address_book.curselection()
+    if idx:
+        clearall()
+        item_name = address_book.get(idx)
+        address_book.delete(idx)
+        name_entry.insert(END,item_name)
+        address_entry.insert(END,my_address_book[item_name]["address"])
+        mobile_entry.insert(END,my_address_book[item_name]["mobile"])
+        email_entry.insert(END,my_address_book[item_name]["email"])
+        birthday_entry.insert(END,my_address_book[item_name]["birthday"])
+
+        del my_address_book[item_name]
+    else:
+        messagebox.showerror(title="Error", message="Select a name")
+
+
+def open():
+    global my_address_book
+    file = filedialog.askopenfile(title='Open File')
+    if file is not None:
+        address_book.delete(0,END)
+        my_address_book.clear()
+        my_address_book = eval(file.read())
+        for item in my_address_book:
+            address_book.insert(END,item)
+        print(my_address_book)
+
 
 def clearall():
     name_entry.delete(0,END)
@@ -69,9 +106,9 @@ address_book.grid(row=1,column=0, columnspan=3, rowspan=5,padx=5,pady=10)
 address_book.bind("<<ListboxSelect>>", display)
 # buttons
 
-edit_bttn = Button(root, text="Edit",width=10)
+edit_bttn = Button(root, text="Edit",width=10, command=edit)
 delete_bttn = Button(root, text="Delete",width=10, command=delete)
-open_bttn = Button(root, text="Open",width=10)
+open_bttn = Button(root, text="Open",width=10, command=open)
 update_add_bttn = Button(root, text="Update/Add",width=20, command=add)
 save_bttn = Button(root, text="Save", width=40,command=save)
 
