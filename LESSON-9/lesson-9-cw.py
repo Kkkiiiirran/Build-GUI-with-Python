@@ -232,15 +232,7 @@ board = []
 for i in range(3):
     row = []
     for j in range(3):
-        button = Button(
-            board_frame,
-            text="",
-            width=10,
-            height=5,
-            font=("Helvetica", 15, "bold"),
-            command=lambda row=i, column=j: on_click(row, column),
-            bg="pink",
-            fg="blue"
+        button = Button(board_frame,text="",width=10,height=5,font=("Helvetica", 15, "bold"),command=lambda row=i, column=j: on_click(row, column),bg="pink",fg="blue"
         )
         button.grid(row=i, column=j)
         row.append(button)
