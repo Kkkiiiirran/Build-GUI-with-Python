@@ -15,21 +15,21 @@ class Paint(object):
                                  command=self.use_pen)
         self.pen_button.grid(row=0, column=0)
 
-        self.brush_button = Button(self.root, text='brush',
-                                   command=self.use_brush)
-        self.brush_button.grid(row=0, column=1)
+        # self.brush_button = Button(self.root, text='brush',
+        #                            command=self.use_brush)
+        # self.brush_button.grid(row=0, column=1)
 
         self.color_button = Button(self.root, text='color',
                                    command=self.choose_color)
-        self.color_button.grid(row=0, column=2)
+        self.color_button.grid(row=0, column=1)
 
         self.eraser_button = Button(self.root, text='eraser',
                                     command=self.use_eraser)
-        self.eraser_button.grid(row=0, column=3)
+        self.eraser_button.grid(row=0, column=2)
 
         self.choose_size_button = Scale(self.root, from_=1, to=10,
                                         orient=HORIZONTAL)
-        self.choose_size_button.grid(row=0, column=4)
+        self.choose_size_button.grid(row=0, column=3)
 
         self.c = Canvas(self.root, bg='white', width=600, height=600)
         self.c.grid(row=1, columnspan=5)
@@ -50,8 +50,8 @@ class Paint(object):
     def use_pen(self):
         self.activate_button(self.pen_button)
 
-    def use_brush(self):
-        self.activate_button(self.brush_button)
+    # def use_brush(self):
+    #     self.activate_button(self.brush_button)
 
     def choose_color(self):
         self.eraser_on = False

@@ -16,7 +16,7 @@ def Get_Time():
 root = Tk()
 root.title("Digital Clock")
 
-heading = Label(root, text="Digital Clock")
+# heading = Label(root, text="Digital Clock")
 
 time_label = Label(root, fg="White", font=("Calibri", 40, "bold"))
 time_label.pack()

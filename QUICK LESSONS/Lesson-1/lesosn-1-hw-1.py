@@ -4,7 +4,7 @@ root = Tk()
 
 root.geometry('500x500')
 
-button_top = Button(root, text="tOp",background="pink")
+button_top = Button(root, text="tOp",background="black", fg="white")
 button_top.pack(side="top")
 
 button_bottom = Button(root, text="bOtToM", background="red")

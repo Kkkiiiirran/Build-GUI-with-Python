@@ -4,13 +4,13 @@ import random
 
 # Initialize game state
 tries = 10
-answer = random.randint(1, 100000)  # Generate a random number globally
+answer = random.randint(1, 20)  # Generate a random number globally
 
 def reset_game():
     """Reset the game state for a new round."""
     global tries, answer
     tries = 5
-    answer = random.randint(1, 100000)
+    answer = random.randint(1, 50)
     result.config(text="You have 5 tries left", fg="#2c3e50")
     guess_input.config(state=NORMAL)
     check_button.config(state=NORMAL)

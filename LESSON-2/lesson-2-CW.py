@@ -1,7 +1,7 @@
 from tkinter import *
 
 root = Tk()
-root.geometry('200x300')
+root.geometry('700x500')
 
 def Convert():
     weight_in_kg = float(weight.get())  # Get input weight from entry box
